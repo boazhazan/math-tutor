@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>בועז חזן - מורה פרטי למתמטיקה</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1a365d;
+            --secondary: #2b6cb0;
+            --accent: #ed8936;
+            --accent-light: #fbd38d;
+            --success: #38a169;
+            --whatsapp: #25D366;
+            --whatsapp-dark: #128C7E;
+            --light: #f7fafc;
+            --dark: #1a202c;
+            --gradient-1: linear-gradient(135deg, #1a365d 0%, #2b6cb0 50%, #4299e1 100%);
+            --gradient-accent: linear-gradient(135deg, #ed8936 0%, #f6ad55 100%);
+            --gradient-whatsapp: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+        }
+
+        body {
+            font-family: 'Heebo', sans-serif;
+            background: linear-gradient(180deg, #e2e8f0 0%, #cbd5e0 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .flyer {
+            width: 100%;
+            max-width: 680px;
+            background: var(--light);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 
+                0 25px 50px -12px rgba(0, 0, 0, 0.25),
+                0 0 0 1px rgba(255, 255, 255, 0.5);
+            position: relative;
+        }
+
+        /* Header Section */
+        .header {
+            background: var(--gradient-1);
+            padding: 40px 30px 55px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+            animation: shimmer 8s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { transform: translateX(0) translateY(0); }
+            50% { transform: translateX(-20%) translateY(10%); }
+        }
+
+        .math-symbols {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            overflow: hidden;
+            opacity: 0.12;
+            font-size: 24px;
+            color: white;
+        }
+
+        .math-symbols span {
+            position: absolute;
+            animation: float 15s linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100%) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100%) rotate(360deg); opacity: 0; }
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+
+        .profile-badge {
+            width: 100px;
+            height: 100px;
+            background: var(--gradient-accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            box-shadow: 0 10px 30px rgba(237, 137, 54, 0.4);
+            font-size: 2.8rem;
+            border: 4px solid rgba(255,255,255,0.3);
+        }
+
+        .name {
+            font-size: 2.6rem;
+            font-weight: 800;
+            color: white;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            margin-bottom: 8px;
+        }
+
+        .title-role {
+            font-size: 1.15rem;
+            color: rgba(255, 255, 255, 0.95);
+            font-weight: 500;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .tagline {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            padding: 12px 25px;
+            border-radius: 50px;
+            display: inline-block;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: white;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        /* Wave Divider */
+        .wave-divider {
+            position: relative;
+            margin-top: -30px;
+            z-index: 3;
+        }
+
+        .wave-divider svg {
+            display: block;
+            width: 100%;
+            height: 50px;
+        }
+
+        /* Content Section */
+        .content {
+            padding: 30px;
+        }
+
+        /* Credentials Section */
+        .credentials {
+            background: linear-gradient(135deg, #edf2f7 0%, #e2e8f0 100%);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 25px;
+            border-right: 4px solid var(--secondary);
+        }
+
+        .credentials h3 {
+            font-size: 1.1rem;
+            color: var(--primary);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .credentials-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .credential-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1rem;
+            color: var(--dark);
+        }
+
+        .credential-item .icon {
+            width: 28px;
+            height: 28px;
+            background: white;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        /* Grade Range Badge */
+        .grade-badge {
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            color: white;
+            padding: 14px 28px;
+            border-radius: 50px;
+            display: inline-block;
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(72, 187, 120, 0.4);
+        }
+
+        .grade-badge span {
+            font-weight: 800;
+        }
+
+        /* Selling Points */
+        .selling-points {
+            background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 25px;
+            border: 2px solid #fbbf24;
+        }
+
+        .selling-points h3 {
+            font-size: 1.15rem;
+            color: #92400e;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .selling-points ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .selling-points li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.05rem;
+            color: #78350f;
+            font-weight: 500;
+        }
+
+        .selling-points li::before {
+            content: '✓';
+            width: 24px;
+            height: 24px;
+            background: var(--success);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        /* Section Title */
+        .section-title {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .section-title h2 {
+            font-size: 1.4rem;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .section-title p {
+            font-size: 0.95rem;
+            color: #718096;
+        }
+
+        .whatsapp-hint {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            color: var(--whatsapp-dark);
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        /* Pricing Cards */
+        .pricing-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .price-card {
+            background: white;
+            border-radius: 16px;
+            padding: 22px 18px;
+            text-align: center;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+        }
+
+        .price-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+        }
+
+        .price-card::after {
+            content: '💬 לחץ לוואטסאפ';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--gradient-whatsapp);
+            color: white;
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 8px;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .price-card:hover::after {
+            transform: translateY(0);
+        }
+
+        .price-card.zoom {
+            border-color: #4299e1;
+        }
+
+        .price-card.zoom::before {
+            background: linear-gradient(90deg, #4299e1, #63b3ed);
+        }
+
+        .price-card.frontal {
+            border-color: #9f7aea;
+        }
+
+        .price-card.frontal::before {
+            background: linear-gradient(90deg, #9f7aea, #b794f4);
+        }
+
+        .price-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .price-card-icon {
+            width: 55px;
+            height: 55px;
+            margin: 0 auto 12px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+        }
+
+        .price-card.zoom .price-card-icon {
+            background: linear-gradient(135deg, #ebf8ff, #bee3f8);
+        }
+
+        .price-card.frontal .price-card-icon {
+            background: linear-gradient(135deg, #faf5ff, #e9d8fd);
+        }
+
+        .price-card-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+
+        .price-card-location {
+            font-size: 0.9rem;
+            color: #718096;
+            margin-bottom: 10px;
+        }
+
+        .price-card-price {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+
+        .price-card.zoom .price-card-price {
+            color: #2b6cb0;
+        }
+
+        .price-card.frontal .price-card-price {
+            color: #805ad5;
+        }
+
+        .price-card-price span {
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .price-card-duration {
+            font-size: 0.95rem;
+            color: #718096;
+            margin-bottom: 15px;
+        }
+
+        .price-breakdown {
+            font-size: 0.85rem;
+            color: #a0aec0;
+            background: #f7fafc;
+            padding: 8px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        /* Group Discount Banner */
+        .group-banner {
+            background: linear-gradient(135deg, #c6f6d5 0%, #9ae6b4 100%);
+            border-radius: 16px;
+            padding: 18px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border: 2px solid #48bb78;
+            margin-bottom: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .group-banner::after {
+            content: '💬 לחץ לוואטסאפ';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--gradient-whatsapp);
+            color: white;
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 8px;
+            text-align: center;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .group-banner:hover::after {
+            transform: translateY(0);
+        }
+
+        .group-banner:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(72, 187, 120, 0.3);
+        }
+
+        .group-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--success);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 1.6rem;
+        }
+
+        .group-text h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #22543d;
+            margin-bottom: 4px;
+        }
+
+        .group-text p {
+            font-size: 0.95rem;
+            color: #276749;
+            line-height: 1.5;
+        }
+
+        /* App Section */
+        .app-section {
+            background: linear-gradient(135deg, #1a365d 0%, #2d3748 100%);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 25px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .app-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M20 20c0-5.5-4.5-10-10-10s-10 4.5-10 10 4.5 10 10 10 10-4.5 10-10zm10 0c0-5.5-4.5-10-10-10s-10 4.5-10 10 4.5 10 10 10 10-4.5 10-10z'/%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .app-badge {
+            background: linear-gradient(135deg, #f6ad55 0%, #ed8936 100%);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .app-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .app-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .app-subtitle {
+            font-size: 1.05rem;
+            color: rgba(255,255,255,0.85);
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .app-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .app-feature {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .app-feature-icon {
+            width: 36px;
+            height: 36px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .app-feature-text {
+            font-size: 0.9rem;
+            color: white;
+            font-weight: 500;
+        }
+
+        .app-price-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .app-price {
+            display: flex;
+            align-items: baseline;
+            gap: 5px;
+        }
+
+        .app-price-amount {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #fbd38d;
+        }
+
+        .app-price-period {
+            font-size: 1rem;
+            color: rgba(255,255,255,0.7);
+        }
+
+        .app-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--gradient-whatsapp);
+            color: white;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .app-cta:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
+        }
+
+        /* Footer CTA */
+        .footer-cta {
+            background: var(--gradient-whatsapp);
+            margin: 0 -30px -30px;
+            padding: 28px 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        .footer-cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.08'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .cta-text {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 5px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-subtext {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.9);
+            position: relative;
+            z-index: 1;
+            margin-bottom: 12px;
+        }
+
+        .phone-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: white;
+            color: var(--whatsapp-dark);
+            padding: 14px 30px;
+            border-radius: 50px;
+            font-weight: 800;
+            font-size: 1.4rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 1;
+            text-decoration: none;
+            transition: transform 0.2s;
+        }
+
+        .phone-button:hover {
+            transform: scale(1.05);
+        }
+
+        .phone-button span {
+            font-size: 1.3rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 550px) {
+            .name {
+                font-size: 2.1rem;
+            }
+            
+            .pricing-section {
+                grid-template-columns: 1fr;
+            }
+
+            .app-features {
+                grid-template-columns: 1fr;
+            }
+            
+            .header {
+                padding: 30px 20px 45px;
+            }
+            
+            .content {
+                padding: 25px 20px;
+            }
+
+            .tagline {
+                font-size: 1.05rem;
+                padding: 10px 20px;
+            }
+
+            .app-price-row {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .flyer {
+                box-shadow: none;
+                border-radius: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="flyer">
+        <!-- Header -->
+        <div class="header">
+            <div class="math-symbols">
+                <span style="right: 10%; animation-delay: 0s;">∑</span>
+                <span style="right: 30%; animation-delay: 2s;">π</span>
+                <span style="right: 50%; animation-delay: 4s;">√</span>
+                <span style="right: 70%; animation-delay: 6s;">∞</span>
+                <span style="right: 90%; animation-delay: 8s;">Δ</span>
+                <span style="right: 20%; animation-delay: 10s;">±</span>
+                <span style="right: 60%; animation-delay: 12s;">∫</span>
+                <span style="right: 80%; animation-delay: 14s;">θ</span>
+            </div>
+            <div class="header-content">
+                <div class="profile-badge">👨‍🏫</div>
+                <h1 class="name">בועז חזן</h1>
+                <p class="title-role">
+                    רכז מתמטיקה ומדעי המחשב<br>
+                    בחטיבה-תיכון 6 שנתי
+                </p>
+                <div class="tagline">🎯 המתמטיקה שלכם בידיים טובות!</div>
+            </div>
+        </div>
+
+        <!-- Wave Divider -->
+        <div class="wave-divider">
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" fill="#f7fafc"/>
+            </svg>
+        </div>
+
+        <!-- Content -->
+        <div class="content">
+            <!-- Credentials -->
+            <div class="credentials">
+                <h3>💼 הרקע שלי</h3>
+                <div class="credentials-list">
+                    <div class="credential-item">
+                        <span class="icon">🎓</span>
+                        <span>תואר במדעי המחשב ומתמטיקה</span>
+                    </div>
+                    <div class="credential-item">
+                        <span class="icon">💻</span>
+                        <span>6 שנות ניסיון בחברות הייטק</span>
+                    </div>
+                    <div class="credential-item">
+                        <span class="icon">🏫</span>
+                        <span>5 שנות ניסיון בהוראה</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grade Badge -->
+            <div style="text-align: center;">
+                <div class="grade-badge">
+                    📚 כיתות <span>א׳ - י״ב</span> | עד <span>4 יחידות לימוד</span>
+                </div>
+            </div>
+
+            <!-- Selling Points -->
+            <div class="selling-points">
+                <h3>🌟 למה דווקא אצלי?</h3>
+                <ul>
+                    <li>הסברים ברורים ובגובה העיניים</li>
+                    <li>סבלנות אינסופית - עד שמבינים!</li>
+                    <li>התאמה אישית לקצב של כל תלמיד</li>
+                    <li>טיפים וטריקים מעולם ההייטק</li>
+                    <li>הכנה יסודית למבחנים ובגרויות</li>
+                </ul>
+            </div>
+
+            <!-- Pricing Section Title -->
+            <div class="section-title">
+                <h2>💰 מחירון שיעורים פרטיים</h2>
+                <p>לחצו על האפשרות המתאימה לכם</p>
+                <div class="whatsapp-hint">
+                    <span>📱</span> לחיצה פותחת וואטסאפ ישירות אליי
+                </div>
+            </div>
+
+            <!-- Pricing Cards -->
+            <div class="pricing-section">
+                <a href="https://wa.me/972523616310?text=היי%20בועז!%20אני%20מעוניין/ת%20בשיעור%20פרטי%20בזום%20למתמטיקה.%20אשמח%20לפרטים%20נוספים!" class="price-card zoom" target="_blank">
+                    <div class="price-card-icon">💻</div>
+                    <h3 class="price-card-title">שיעור בזום</h3>
+                    <p class="price-card-location">מכל מקום בארץ</p>
+                    <div class="price-card-price">₪100</div>
+                    <p class="price-card-duration">ל-45 דקות</p>
+                </a>
+                
+                <a href="https://wa.me/972523616310?text=היי%20בועז!%20אני%20מעוניין/ת%20בשיעור%20פרטי%20פרונטאלי%20בחדרה%20למתמטיקה.%20אשמח%20לפרטים%20נוספים!" class="price-card frontal" target="_blank">
+                    <div class="price-card-icon">🏠</div>
+                    <h3 class="price-card-title">שיעור פרונטאלי</h3>
+                    <p class="price-card-location">באזור חדרה</p>
+                    <div class="price-card-price">₪130-150</div>
+                    <p class="price-card-duration">ל-45 דקות</p>
+                    <div class="price-breakdown">יסודי ₪130 | חט״ב+תיכון ₪150</div>
+                </a>
+            </div>
+
+            <!-- Group Discount -->
+            <a href="https://wa.me/972523616310?text=היי%20בועז!%20אנחנו%20מעוניינים%20בשיעור%20קבוצתי%20למתמטיקה.%20אשמח%20לשמוע%20על%20המחירים%20והאפשרויות!" class="group-banner" target="_blank">
+                <div class="group-icon">👥</div>
+                <div class="group-text">
+                    <h3>💰 הנחה לשיעורים קבוצתיים!</h3>
+                    <p>לומדים עם חבר? מקבלים הנחה - בזום או פרונטאלי</p>
+                </div>
+            </a>
+
+            <!-- App Section -->
+            <div class="app-section">
+                <span class="app-badge">🆕 חדש!</span>
+                <div class="app-content">
+                    <h2 class="app-title">
+                        <span>📱</span> מנוי ללימוד חכם
+                    </h2>
+                    <p class="app-subtitle">
+                        אפליקציה אישית שמעניקה לתלמיד גישה ישירה אליי כל יום, 
+                        בתוספת בוט לימודי חכם שמותאם אישית לצרכים שלו!
+                    </p>
+                    
+                    <div class="app-features">
+                        <div class="app-feature">
+                            <div class="app-feature-icon">💬</div>
+                            <span class="app-feature-text">קשר ישיר איתי יום-יומי</span>
+                        </div>
+                        <div class="app-feature">
+                            <div class="app-feature-icon">🤖</div>
+                            <span class="app-feature-text">בוט מלמד עם הכוונה שלי</span>
+                        </div>
+                        <div class="app-feature">
+                            <div class="app-feature-icon">📝</div>
+                            <span class="app-feature-text">משימות והגשות מותאמות</span>
+                        </div>
+                        <div class="app-feature">
+                            <div class="app-feature-icon">🎯</div>
+                            <span class="app-feature-text">מעקב התקדמות אישי</span>
+                        </div>
+                    </div>
+
+                    <div class="app-price-row">
+                        <div class="app-price">
+                            <span class="app-price-amount">₪100</span>
+                            <span class="app-price-period">לחודש</span>
+                        </div>
+                        <a href="https://wa.me/972523616310?text=היי%20בועז!%20אני%20מעוניין/ת%20להירשם%20לאפליקציית%20הלימוד%20החכם%20שלך.%20אשמח%20לפרטים%20נוספים!" class="app-cta" target="_blank">
+                            <span>📲</span> להרשמה בוואטסאפ
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer CTA -->
+            <div class="footer-cta">
+                <p class="cta-text">📞 שאלות? בואו נדבר!</p>
+                <p class="cta-subtext">לחצו לשיחה ישירה בוואטסאפ</p>
+                <a href="https://wa.me/972523616310?text=היי%20בועז!%20ראיתי%20את%20הפלייר%20שלך%20ואשמח%20לשמוע%20עוד%20על%20השיעורים%20הפרטיים." class="phone-button" target="_blank">
+                    <span>💬</span> 052-361-6310
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
